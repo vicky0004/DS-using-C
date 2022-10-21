@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 struct node{
     int data;
@@ -7,23 +8,31 @@ struct node{
 struct node *prevnode,*currentnode,*nextnode;
 int main(){
     struct node *head,*newnode,*temp;
-	head=0;int choice;
-	printf("do u want to enter new data(0,1)");
-	scanf("%d",&choice);
-	while(choice){
-		newnode=(struct node *)malloc(sizeof(struct node));
-		printf("Enter the data");
-		scanf("%d",&newnode->data);
-		newnode->next=0;
-		if(head==0){
-			head=temp=newnode;
-		}
-		else{
-			temp->next=newnode;
-			temp=newnode;
-		}
-		printf("do u want to enter new data(0,1)");
+	head=NULL;
+	int choice=1;
+	do{
+		printf("do u want to enter new data[ 0,1 ]: ");
 		scanf("%d",&choice);
+	switch(choice){
+		case 1 :
+			newnode=(struct node *)malloc(sizeof(struct node));
+			printf("Enter the data : ");
+			scanf("%d",&newnode->data);
+			newnode->next=NULL;
+			if(head==NULL){
+				head=temp=newnode;
+			}
+			else{
+				temp->next=newnode;
+				temp=newnode;
+			}
+		}
+	}while(choice);
+	printf("Before reverse items are : ");
+	temp=head;
+	while(temp!=0){
+		printf("%d ",temp->data);
+		temp=temp->next;
 	}
     prevnode=0;
     currentnode=nextnode=head;
@@ -33,8 +42,9 @@ int main(){
         prevnode=currentnode;
         currentnode=nextnode;
     }
-    head=nextnode;
-
+    head=prevnode;
+	printf("\nAfter reverse items are : ");
+	temp=head;
     while(temp!=0){
 		printf("%d ",temp->data);
 		temp=temp->next;
